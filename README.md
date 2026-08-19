@@ -76,3 +76,10 @@ AI_Study_Quiz_Generator/
     ├── result.html
     ├── history.html
     └── leaderboard.html
+## Author
+
+**Koppadi Shireesha**
+
+B.Tech – Artificial Intelligence & Data Science
+
+GitHub: [ShireeshaKoppadi](https://github.com/ShireeshaKoppadi)
