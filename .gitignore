@@ -1,0 +1,6 @@
+.env
+quiz.db
+uploads/*
+__pycache__/
+*.pyc
+.vscode/

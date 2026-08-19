@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        AI Quiz
+    </a>
+
+    <div class="nav-links">
+
+        <a href="/history">History</a>
+
+        <a href="/leaderboard">Leaderboard</a>
+
+        <button id="themeToggle"
+                class="theme-btn"
+                type="button">
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="quiz-container">
+
+    <h1>Quiz Results</h1>
+
+    <p class="subtitle">
+
+        Subject:
+        <strong>{{ subject }}</strong>
+
+    </p>
+
+
+    <div class="score-card">
+
+        <h2>Your Final Score</h2>
+
+        <div class="score">
+
+            {{ score }}/{{ total }}
+
+        </div>
+
+        <p class="performance">
+
+            {{ performance }}
+
+        </p>
+
+    </div>
+
+
+    <div class="analysis-grid">
+
+        <div class="analysis-card">
+
+            <h3>Correct</h3>
+
+            <p>{{ score }}</p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <h3>Wrong</h3>
+
+            <p>{{ wrong }}</p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <h3>Percentage</h3>
+
+            <p>{{ percentage }}%</p>
+
+        </div>
+
+
+        <div class="analysis-card">
+
+            <h3>Grade</h3>
+
+            <p>{{ grade }}</p>
+
+        </div>
+
+    </div>
+
+
+    <h2 class="result-heading">
+
+        Detailed Answer Review
+
+    </h2>
+
+
+    {% for result in results %}
+
+    <div class="question-card">
+
+        <h3>
+            Question {{ result.question_number }}
+        </h3>
+
+        <p class="review-question">
+
+            {{ result.question }}
+
+        </p>
+
+
+        {% if result.is_correct %}
+
+        <p class="correct">
+            ✓ Correct Answer
+        </p>
+
+        {% else %}
+
+        <p class="wrong">
+            ✗ Wrong Answer
+        </p>
+
+        {% endif %}
+
+
+        <p>
+
+            <strong>Your Answer:</strong>
+
+            {{ result.user_answer or "Not Answered" }}
+
+        </p>
+
+
+        {% if not result.is_correct %}
+
+        <p>
+
+            <strong>Correct Answer:</strong>
+
+            {{ result.correct_answer }}
+
+        </p>
+
+        {% endif %}
+
+
+        <div class="explanation-box">
+
+            <strong>💡 Explanation:</strong>
+
+            <p>
+                {{ result.explanation }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+
+    <div class="result-buttons">
+
+        <a href="/retake"
+           class="back-button">
+
+            🔄 Retake Same Quiz
+
+        </a>
+
+
+        <a href="/"
+           class="back-button secondary-button">
+
+            ✨ Generate New Quiz
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

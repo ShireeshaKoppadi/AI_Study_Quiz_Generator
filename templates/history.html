@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        AI Quiz
+    </a>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/leaderboard">
+            Leaderboard
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="quiz-container">
+
+    <h1>My Quiz History</h1>
+
+
+    {% if history %}
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+                <th>Date</th>
+
+            </tr>
+
+
+            {% for item in history %}
+
+            <tr>
+
+                <td>{{ item.subject }}</td>
+
+                <td>
+                    {{ item.score }}/{{ item.total }}
+                </td>
+
+                <td>
+                    {{ item.percentage }}%
+                </td>
+
+                <td>
+                    {{ item.grade }}
+                </td>
+
+                <td>
+                    {{ item.created_at }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p class="empty-message">
+
+        No quiz history available yet.
+
+    </p>
+
+    {% endif %}
+
+
+    <a href="/"
+       class="back-button">
+
+        ← Back to Home
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

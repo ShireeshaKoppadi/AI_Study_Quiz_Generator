@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Leaderboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        AI Quiz
+    </a>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/history">
+            History
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="quiz-container">
+
+    <h1>🏆 Leaderboard</h1>
+
+    <p class="subtitle">
+        Top quiz performers
+    </p>
+
+
+    {% if leaders %}
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+
+                <th>Rank</th>
+                <th>User</th>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+
+            </tr>
+
+
+            {% for leader in leaders %}
+
+            <tr>
+
+                <td>
+                    #{{ loop.index }}
+                </td>
+
+                <td>
+                    {{ leader.username }}
+                </td>
+
+                <td>
+                    {{ leader.subject }}
+                </td>
+
+                <td>
+                    {{ leader.score }}/{{ leader.total }}
+                </td>
+
+                <td>
+                    {{ leader.percentage }}%
+                </td>
+
+                <td>
+                    {{ leader.grade }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p class="empty-message">
+
+        No leaderboard data yet.
+        Login and complete a quiz!
+
+    </p>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Study Quiz Generator</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        AI Quiz
+    </a>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/leaderboard">Leaderboard</a>
+
+        {% if session.get("user_id") %}
+
+            <a href="/history">History</a>
+
+            <span class="welcome">
+                Hi, {{ session.get("username") }}
+            </span>
+
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <a href="/login">Login</a>
+
+            <a href="/register">Register</a>
+
+        {% endif %}
+
+        <button id="themeToggle"
+                class="theme-btn"
+                type="button">
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1>AI Study Quiz Generator</h1>
+
+        <p>
+            Upload notes or paste study material.
+            AI will create an interactive quiz for you!
+        </p>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="success-message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    <form action="/generate"
+          method="POST"
+          enctype="multipart/form-data">
+
+
+        <label>📚 Subject / Topic Name</label>
+
+        <input
+            type="text"
+            name="subject"
+            placeholder="Example: Python Programming"
+        >
+
+
+        <label>🎯 Select Difficulty</label>
+
+        <select name="difficulty">
+
+            <option value="Easy">
+                Easy
+            </option>
+
+            <option value="Medium"
+                    selected>
+                Medium
+            </option>
+
+            <option value="Hard">
+                Hard
+            </option>
+
+        </select>
+
+
+        <label>📝 Number of Questions</label>
+
+        <select name="num_questions">
+
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="15">15 Questions</option>
+            <option value="20">20 Questions</option>
+
+        </select>
+
+
+        <label>📚 Paste Study Material</label>
+
+        <textarea
+            name="study_material"
+            placeholder="Paste your notes, paragraphs or study material here..."
+        ></textarea>
+
+
+        <div class="or-text">
+            OR
+        </div>
+
+
+        <label>📄 Upload PDF Notes</label>
+
+        <input
+            type="file"
+            name="pdf_file"
+            accept=".pdf"
+        >
+
+
+        <button type="submit">
+
+            ✨ Generate AI Quiz
+
+        </button>
+
+    </form>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

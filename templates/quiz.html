@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Generated Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        AI Quiz
+    </a>
+
+    <div class="nav-links">
+
+        <span>{{ subject }}</span>
+
+        <button id="themeToggle"
+                class="theme-btn"
+                type="button">
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="quiz-container">
+
+
+    <div class="quiz-top">
+
+        <div>
+
+            <h1>AI Generated Quiz</h1>
+
+            <p class="subtitle">
+                Subject: <strong>{{ subject }}</strong>
+                |
+                Difficulty: <strong>{{ difficulty }}</strong>
+            </p>
+
+        </div>
+
+
+        <div class="timer-box">
+
+            ⏱️ <span id="timer">10:00</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="progress-info">
+
+        <span id="progressText">
+            Answered 0 of {{ quiz|length }}
+        </span>
+
+        <div class="progress-bar">
+
+            <div id="progressFill"
+                 class="progress-fill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <form action="/submit"
+          method="POST"
+          id="quizForm">
+
+
+        {% for item in quiz %}
+
+        {% set question_number = loop.index %}
+
+
+        <div class="question-card">
+
+            <div class="question-header">
+
+                <h2>
+                    Question {{ question_number }}
+                </h2>
+
+                <button
+                    type="button"
+                    class="speak-btn"
+                    onclick="speakQuestion({{ question_number }})">
+
+                    🔊 Listen
+
+                </button>
+
+            </div>
+
+
+            <p class="question-text"
+               id="questionText{{ question_number }}">
+
+                {{ item.question }}
+
+            </p>
+
+
+            {% for option in item.options %}
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="question_{{ question_number }}"
+                    value="{{ option }}"
+                    onchange="updateProgress()"
+                    required
+                >
+
+                <span>{{ option }}</span>
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% endfor %}
+
+
+        <button type="submit">
+
+            📊 Submit Quiz & View Result
+
+        </button>
+
+    </form>
+
+
+    <a href="/"
+       class="back-button">
+
+        ← Generate New Quiz
+
+    </a>
+
+</div>
+
+
+<script>
+
+const totalQuestions = {{ quiz|length }};
+
+let totalSeconds = totalQuestions * 60;
+
+
+function updateProgress() {
+
+    let answered = 0;
+
+    for (let i = 1; i <= totalQuestions; i++) {
+
+        const selected = document.querySelector(
+            `input[name="question_${i}"]:checked`
+        );
+
+        if (selected) {
+            answered++;
+        }
+
+    }
+
+
+    const percentage =
+        (answered / totalQuestions) * 100;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width = percentage + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).innerText =
+        `Answered ${answered} of ${totalQuestions}`;
+
+}
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(totalSeconds / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        String(minutes).padStart(2, "0")
+        +
+        ":"
+        +
+        String(seconds).padStart(2, "0");
+
+
+    if (totalSeconds <= 0) {
+
+        alert(
+            "Time is over! Your quiz will be submitted automatically."
+        );
+
+        document.getElementById(
+            "quizForm"
+        ).submit();
+
+        return;
+    }
+
+
+    totalSeconds--;
+
+}
+
+
+setInterval(updateTimer, 1000);
+
+
+function speakQuestion(number) {
+
+    const text =
+        document.getElementById(
+            "questionText" + number
+        ).innerText;
+
+
+    speechSynthesis.cancel();
+
+
+    const speech =
+        new SpeechSynthesisUtterance(text);
+
+
+    speech.lang = "en-US";
+
+
+    speechSynthesis.speak(speech);
+
+}
+
+</script>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
