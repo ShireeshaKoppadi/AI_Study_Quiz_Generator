@@ -22,6 +22,9 @@ This makes learning more interactive and helps students test their knowledge qui
 - Leaderboard
 - Simple and user-friendly interface
 - Responsive web design
+- PDF notes upload
+- Difficulty selection
+- Custom number of questions
 
 ## Technologies Used
 
@@ -40,11 +43,15 @@ This makes learning more interactive and helps students test their knowledge qui
 
 - Google Gemini API
 
-### Other Technologies
+### Database
 
 - SQLite
+
+### Tools
+
 - Git
 - GitHub
+- Visual Studio Code
 
 ## Project Structure
 
@@ -55,6 +62,7 @@ AI_Study_Quiz_Generator/
 ├── test.py
 ├── requirements.txt
 ├── .gitignore
+├── README.md
 │
 ├── static/
 │   ├── script.js
@@ -68,40 +76,3 @@ AI_Study_Quiz_Generator/
     ├── result.html
     ├── history.html
     └── leaderboard.html
-## Author
-
-**Koppadi Shireesha**
-
-B.Tech – Artificial Intelligence & Data Science
-
-GitHub: [ShireeshaKoppadi](https://github.com/ShireeshaKoppadi)
-
-
-**ila 3 backticks pettakandi.**
-
-So **last line GitHub link tho end avvali.**
-
----
-
-## Step 2 — Kindaki scroll cheyyandi
-
-README editor page lo **completely bottom ki scroll** cheyyandi.
-
-Akkada:
-
-### `Commit changes...`
-
-ane button kanipistundi.
-
-**Adi click cheyyandi.**
-
----
-
-## Step 3 — Popup vastundi
-
-Popup lo **Commit message** ane box untundi.
-
-Andulo:
-
-```text
-Complete README documentation
