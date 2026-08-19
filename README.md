@@ -26,18 +26,22 @@ This makes learning more interactive and helps students test their knowledge qui
 ## Technologies Used
 
 ### Frontend
+
 - HTML
 - CSS
 - JavaScript
 
 ### Backend
+
 - Python
 - Flask
 
 ### AI
+
 - Google Gemini API
 
 ### Other Technologies
+
 - SQLite
 - Git
 - GitHub
