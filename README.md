@@ -68,9 +68,3 @@ AI_Study_Quiz_Generator/
     ├── result.html
     ├── history.html
     └── leaderboard.html
-## How to Run the Project
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/ShireeshaKoppadi/AI_Study_Quiz_Generator.git
